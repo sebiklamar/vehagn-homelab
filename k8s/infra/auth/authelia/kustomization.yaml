@@ -4,9 +4,11 @@ namespace: authelia
 
 resources:
   - ns.yaml
+  - crypto.yaml
   - lldap-credentials.yaml
+  - cert-rsa-jwk.yaml
+  - cert-ecdsa-jwk.yaml
   - oidc-argocd.yaml
-  - oidc-jwks.yaml
   - http-route.yaml
 
 helmCharts:

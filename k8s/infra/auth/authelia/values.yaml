@@ -12,58 +12,70 @@ configMap:
   default_2fa_method: totp
   theme: "dark"
 
-  access_control:
-    default_policy: "two_factor"
+  identity_validation:
+    reset_password:
+      secret: { secret_name: crypto }
 
-  authentication_backend:
-    ldap:
-      enabled: true
-      implementation: "lldap"
-      address: "ldap://lldap.lldap.svc.cluster.local"
-      base_dn: "dc=stonegarden,dc=dev"
-      users_filter: "(&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))"
-      additional_users_dn: "ou=people"
-      groups_filter: "(member={dn})"
-      additional_groups_dn: "ou=groups"
-      user: "UID=authelia,OU=people,DC=stonegarden,DC=dev"
-      password:
-        secret_name: "lldap-auth"
+  access_control:
+    default_policy: 'two_factor'
+    rules:
+      - domain_regex: '^.*\.stonegarden.iseja.net$'
+        policy: 'two_factor'
 
   session:
+    encryption_key: { secret_name: crypto }
     cookies:
       - subdomain: authelia
         domain: stonegarden.iseja.net
 
   storage:
+    encryption_key: { secret_name: crypto }
     postgres:
-      enabled: false
-      address: "tcp://postgres.databases.svc.cluster.local:5432"
-    # Switch to Postgres later
-    local:
       enabled: true
+#      deploy: true
+      address: 'tcp://single-example-ext.cnpg-database.svc.cluster.local:5432'
+      schema: public
+      database: authelia
+      username: authelia
+      password:
+        value: 'authelia'
+#    # Switch to Postgres later
+#    local:
+#      enabled: true
 
   notifier:
     filesystem:
       enabled: true
 
+  authentication_backend:
+    ldap:
+      enabled: true
+      implementation: 'lldap'
+      address: 'ldap://lldap.lldap.svc.cluster.local'
+      base_dn: 'dc=stonegarden,dc=dev'
+      users_filter: '(&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))'
+      additional_users_dn: 'ou=people'
+      groups_filter: '(member={dn})'
+      additional_groups_dn: 'ou=groups'
+      user: 'UID=authelia,OU=people,DC=stonegarden,DC=dev'
+      password: { secret_name: 'lldap-auth' }
+
   identity_providers:
     oidc:
-      ## Enables this in the config map. Currently in beta stage.
-      ## See https://www.authelia.com/r/openid-connect/
+      ## Currently in beta stage. See https://www.authelia.com/r/openid-connect/
       enabled: true
+      hmac_secret: { secret_name: crypto }
       jwks:
-        - key_id: "default"
-          algorithm: "RS256"
-          use: "sig"
-          key:
-            path: /secrets/oidc-jwks/default.RS256.private.pem
-          certificate_chain:
-            path: /secrets/oidc-jwks/default.RS256.public.crt
-        - key_id: "ecdsa"
-          algorithm: "ES256"
-          use: "sig"
-          key:
-            path: /secrets/oidc-jwks/ecdsa.P256.private.pem
+        - key_id: 'default'
+          algorithm: 'RS256'
+          use: 'sig'
+          key: { path: /secrets/rsa-jwk/tls.key }
+          certificate_chain: { path: /secrets/rsa-jwk/tls.crt }
+        - key_id: 'ecdsa256'
+          algorithm: 'ES256'
+          use: 'sig'
+          key: { path: /secrets/ecdsa-jwk/tls.key }
+          certificate_chain: { path: /secrets/ecdsa-jwk/tls.crt }
       cors:
         allowed_origins_from_client_redirect_uris: true
       clients:
@@ -93,15 +105,29 @@ secret:
       items:
         - key: password
           path: authentication.ldap.password.txt
+    crypto:
+      items:
+        - key: identity_providers.oidc.hmac.key
+          path: identity_providers.oidc.hmac.key
+        - key: identity_validation.reset_password.jwt.hmac.key
+          path: identity_validation.reset_password.jwt.hmac.key
+        - key: session.encryption.key
+          path: session.encryption.key
+        - key: storage.encryption.key
+          path: storage.encryption.key
+    rsa-jwk:
+      items:
+        - key: tls.key
+          path: tls.key
+        - key: tls.crt
+          path: tls.crt
+    ecdsa-jwk:
+      items:
+        - key: tls.key
+          path: tls.key
+        - key: tls.crt
+          path: tls.crt
     oidc-argocd:
       items:
         - key: clientSecret
           path: clientSecret
-    oidc-jwks:
-      items:
-        - key: default.RS256.private.pem
-          path: default.RS256.private.pem
-        - key: default.RS256.public.crt
-          path: default.RS256.public.crt
-        - key: ecdsa.P256.private.pem
-          path: ecdsa.P256.private.pem

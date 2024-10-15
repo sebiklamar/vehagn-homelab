@@ -5,9 +5,20 @@ metadata:
   namespace: cnpg-database
 spec:
   instances: 1
+  # https://cloudnative-pg.io/documentation/1.24/quickstart/
+  imageName: ghcr.io/cloudnative-pg/postgresql:16.4
+  # https://cloudnative-pg.io/documentation/1.24/monitoring/
+  monitoring:
+    enablePodMonitor: true
   affinity:
     nodeSelector:
       topology.kubernetes.io/zone: euclid
+  bootstrap:
+    initdb:
+      database: authelia
+      owner: authelia
+      secret:
+        name: authelia
   managed:
     services:
       disabledDefaultServices: [ "ro", "r" ]
@@ -28,3 +39,12 @@ spec:
       volumeName: pv-single-database
       accessModes:
         - ReadWriteOnce
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: authelia
+type: kubernetes.io/basic-auth
+stringData:
+  username: 'authelia'
+  password: 'authelia'
