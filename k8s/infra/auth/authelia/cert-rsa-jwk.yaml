@@ -5,7 +5,7 @@ metadata:
   namespace: gateway
 spec:
   dnsNames:
-    - authelia.stonegarden.dev
+    - authelia.stonegarden.iseja.net
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer
