@@ -1,16 +1,16 @@
-realm: coturn.stonegarden.dev
+realm: coturn.stonegarden.iseja.net
 replicaCount: 1
 extraOptions:
   - --listening-ip=0.0.0.0
 
 certificate:
   enabled: true
-  dnsName: coturn.stonegarden.dev
+  dnsName: coturn.stonegarden.iseja.net
   issuerName: cloudflare-cluster-issuer
 
 service:
   annotations:
-    io.cilium/lb-ipam-ips: 192.168.1.226
+    io.cilium/lb-ipam-ips: 10.7.4.226
   type: LoadBalancer
 
 users:

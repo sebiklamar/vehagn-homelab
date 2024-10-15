@@ -29,6 +29,7 @@ resource "proxmox_virtual_environment_vm" "this" {
   network_device {
     bridge      = "vmbr0"
     mac_address = each.value.mac_address
+    vlan_id     = each.value.vlan_id
   }
 
   disk {
@@ -59,15 +60,15 @@ resource "proxmox_virtual_environment_vm" "this" {
     }
   }
 
-  dynamic "hostpci" {
-    for_each = each.value.igpu ? [1] : []
-    content {
-      # Passthrough iGPU
-      device  = "hostpci0"
-      mapping = "iGPU"
-      pcie    = true
-      rombar  = true
-      xvga    = false
-    }
-  }
+  # dynamic "hostpci" {
+  #   for_each = each.value.igpu ? [1] : []
+  #   content {
+  #     # Passthrough iGPU
+  #     device  = "hostpci0"
+  #     mapping = "iGPU"
+  #     pcie    = true
+  #     rombar  = true
+  #     xvga    = false
+  #   }
+  # }
 }

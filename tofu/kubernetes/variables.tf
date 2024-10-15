@@ -1,6 +1,6 @@
 variable "proxmox" {
   type = object({
-    name         = string
+    # name         = string
     cluster_name = string
     endpoint     = string
     insecure     = bool

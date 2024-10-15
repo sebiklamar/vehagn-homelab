@@ -128,7 +128,7 @@ module "volumes" {
   volumes = {
     pv-test = {
       node = "pve2"
-      size = "100M"
+      size = "1G"
     }
     # pv-sonarr = {
     #   node = "cantor"

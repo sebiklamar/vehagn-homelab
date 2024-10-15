@@ -7,8 +7,8 @@ configMapGenerator:
     literals:
       - NB_HOSTNAME="talos-router"
       - NB_LOG_LEVEL="warn"
-      - NB_MANAGEMENT_URL="https://netbird.stonegarden.dev"
-      - NB_ADMIN_URL="https://netbird.stonegarden.dev"
+      - NB_MANAGEMENT_URL="https://netbird.stonegarden.iseja.net"
+      - NB_ADMIN_URL="https://netbird.stonegarden.iseja.net"
       - NB_CONFIG="/config/config.json"
 
 resources:

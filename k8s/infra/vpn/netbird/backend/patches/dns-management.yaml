@@ -7,5 +7,5 @@ spec:
     spec:
       dnsConfig:
         nameservers:
-          - 192.168.1.253 # AdGuardHome
+          - 10.7.4.253 # AdGuardHome
       dnsPolicy: None

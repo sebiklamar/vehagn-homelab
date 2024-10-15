@@ -10,7 +10,7 @@ spec:
     - name: internal
       namespace: gateway
   hostnames:
-    - "netbird.stonegarden.dev"
+    - "netbird.stonegarden.iseja.net"
   rules:
     - backendRefs:
         - name: netbird-dashboard

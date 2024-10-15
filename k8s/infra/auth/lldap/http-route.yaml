@@ -8,7 +8,7 @@ spec:
     - name: internal
       namespace: gateway
   hostnames:
-    - "lldap.stonegarden.dev"
+    - "lldap.stonegarden.iseja.net"
   rules:
     - backendRefs:
         - name: lldap

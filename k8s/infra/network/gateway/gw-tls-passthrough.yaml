@@ -7,12 +7,12 @@ spec:
   gatewayClassName: cilium
   infrastructure:
     annotations:
-      io.cilium/lb-ipam-ips: 192.168.1.221
+      io.cilium/lb-ipam-ips: 10.7.4.221
   listeners:
     - protocol: TLS
       port: 443
       name: proxmox
-      hostname: "proxmox.stonegarden.dev"
+      hostname: "proxmox.stonegarden.iseja.net"
       tls:
         mode: Passthrough
       allowedRoutes:
@@ -21,7 +21,7 @@ spec:
     - protocol: TLS
       port: 443
       name: truenas
-      hostname: "truenas.stonegarden.dev"
+      hostname: "truenas.stonegarden.iseja.net"
       tls:
         mode: Passthrough
       allowedRoutes:

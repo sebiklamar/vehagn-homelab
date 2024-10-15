@@ -10,7 +10,7 @@ spec:
     - name: internal
       namespace: gateway
   hostnames:
-    - "authelia.stonegarden.dev"
+    - "authelia.stonegarden.iseja.net"
   rules:
     - matches:
         - path:

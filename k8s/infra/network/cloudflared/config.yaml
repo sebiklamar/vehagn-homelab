@@ -7,22 +7,22 @@ warp-routing:
   enabled: true
 
 ingress:
-  - hostname: hello.stonegarden.dev
+  - hostname: hello.stonegarden.iseja.net
     service: hello_world
-#  - hostname: proxmox.stonegarden.dev
-#    service: https://proxmox.proxmox.svc.cluster.local:443
-#    originRequest:
-#      originServerName: proxmox.stonegarden.dev
-#  - hostname: truenas.stonegarden.dev
-#    service: https://truenas.truenas.svc.cluster.local:443
-#    originRequest:
-#      originServerName: truenas.stonegarden.dev
-  - hostname: "*.stonegarden.dev"
+  #  - hostname: proxmox.stonegarden.iseja.net
+  #    service: https://proxmox.proxmox.svc.cluster.local:443
+  #    originRequest:
+  #      originServerName: proxmox.stonegarden.iseja.net
+  #  - hostname: truenas.stonegarden.iseja.net
+  #    service: https://truenas.truenas.svc.cluster.local:443
+  #    originRequest:
+  #      originServerName: truenas.stonegarden.iseja.net
+  - hostname: "*.stonegarden.iseja.net"
     service: https://cilium-gateway-external.gateway.svc.cluster.local:443
     originRequest:
-      originServerName: "*.stonegarden.dev"
-  - hostname: stonegarden.dev
+      originServerName: "*.stonegarden.iseja.net"
+  - hostname: stonegarden.iseja.net
     service: https://cilium-gateway-external.gateway.svc.cluster.local:443
     originRequest:
-      originServerName: stonegarden.dev
+      originServerName: stonegarden.iseja.net
   - service: http_status:404

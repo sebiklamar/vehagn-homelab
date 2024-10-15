@@ -4,11 +4,11 @@ configs:
     create: true
     application.resourceTrackingMethod: "annotation+label"
     admin.enabled: false
-    url: 'https://argocd.stonegarden.dev'
+    url: "https://argocd.stonegarden.iseja.net"
     # https://argo-cd.readthedocs.io/en/stable/operator-manual/user-management/#sensitive-data-and-sso-client-secrets
     oidc.config: |
       name: 'Authelia'
-      issuer: 'https://authelia.stonegarden.dev'
+      issuer: 'https://authelia.stonegarden.iseja.net'
       clientID: 'argocd'
       clientSecret: $oidc:authelia.clientSecret
       cliClientID: 'argocd-cli'
@@ -18,8 +18,8 @@ configs:
     plugins:
       kustomize-build-with-helm:
         generate:
-          command: [ "sh", "-c" ]
-          args: [ "kustomize build --enable-helm" ]
+          command: ["sh", "-c"]
+          args: ["kustomize build --enable-helm"]
   params:
     controller.diff.server.side: true
     server.insecure: true
@@ -73,7 +73,7 @@ repoServer:
       configMap:
         name: argocd-cmp-cm
     - name: cmp-tmp
-      emptyDir: { }
+      emptyDir: {}
   resources:
     requests:
       cpu: 100m
@@ -93,7 +93,7 @@ repoServer:
         seccompProfile:
           type: RuntimeDefault
         capabilities:
-          drop: [ "ALL" ]
+          drop: ["ALL"]
       volumeMounts:
         - name: plugins
           mountPath: /home/argocd/cmp-server/plugins

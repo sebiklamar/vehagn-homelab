@@ -5,8 +5,8 @@ metadata:
   namespace: gateway
 spec:
   dnsNames:
-    - "*.stonegarden.dev"
-    - stonegarden.dev
+    - "*.stonegarden.iseja.net"
+    - stonegarden.iseja.net
   issuerRef:
     group: cert-manager.io
     kind: ClusterIssuer

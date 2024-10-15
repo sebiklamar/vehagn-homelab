@@ -8,7 +8,7 @@ spec:
     - name: internal
       namespace: gateway
   hostnames:
-    - "hubble.stonegarden.dev"
+    - "hubble.stonegarden.iseja.net"
   rules:
     - matches:
         - path:

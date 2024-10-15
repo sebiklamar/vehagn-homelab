@@ -7,12 +7,12 @@ spec:
   gatewayClassName: cilium
   infrastructure:
     annotations:
-      io.cilium/lb-ipam-ips: 192.168.1.222
+      io.cilium/lb-ipam-ips: 10.7.4.222
   listeners:
     - protocol: HTTPS
       port: 443
       name: https-gateway
-      hostname: "*.stonegarden.dev"
+      hostname: "*.stonegarden.iseja.net"
       tls:
         certificateRefs:
           - kind: Secret
@@ -23,7 +23,7 @@ spec:
     - protocol: HTTPS
       port: 443
       name: https-domain-gateway
-      hostname: stonegarden.dev
+      hostname: stonegarden.iseja.net
       tls:
         certificateRefs:
           - kind: Secret
