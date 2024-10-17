@@ -3,7 +3,7 @@ resource "proxmox_virtual_environment_vm" "home_assistant" {
 
   name          = "Home-Assistant"
   description   = "Managed by OpenTofu"
-  tags = ["home-assistant"]
+  tags          = ["home-assistant"]
   on_boot       = true
   bios          = "ovmf"
   scsi_hardware = "virtio-scsi-single"
@@ -31,13 +31,13 @@ resource "proxmox_virtual_environment_vm" "home_assistant" {
   }
 
   efi_disk {
-    datastore_id = "local-zfs"
+    datastore_id = "local-enc"
     file_format  = "raw"
     type         = "4m"
   }
 
   disk {
-    datastore_id = "local-zfs"
+    datastore_id = "local-enc"
     file_id      = proxmox_virtual_environment_file.haos_generic_image.id
     interface    = "scsi0"
     cache        = "writethrough"

@@ -9,11 +9,11 @@ variable "proxmox_api" {
 
 variable "volume" {
   type = object({
-    name = string
-    node = string
-    size = string
-    storage = optional(string, "local-zfs")
-    vmid = optional(number, 9999)
-    format = optional(string, "raw")
+    name    = string
+    node    = string
+    size    = string
+    storage = optional(string, "local-enc")
+    vmid    = optional(number, 9999)
+    format  = optional(string, "raw")
   })
 }
