@@ -143,13 +143,13 @@ filtering:
   safebrowsing_block_host: standard-block.dns.adguard.com
   rewrites:
     - domain: proxmox.stonegarden.iseja.net
-      answer: 10.7.4.221
+      answer: 10.7.4.231
     - domain: truenas.stonegarden.iseja.net
-      answer: 10.7.4.221
+      answer: 10.7.4.231
     - domain: "*.stonegarden.iseja.net"
-      answer: 10.7.4.220
+      answer: 10.7.4.230
     - domain: stonegarden.iseja.net
-      answer: 10.7.4.220
+      answer: 10.7.4.230
   safebrowsing_cache_size: 1048576
   safesearch_cache_size: 1048576
   parental_cache_size: 1048576

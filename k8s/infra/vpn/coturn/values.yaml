@@ -10,7 +10,7 @@ certificate:
 
 service:
   annotations:
-    io.cilium/lb-ipam-ips: 10.7.4.216
+    io.cilium/lb-ipam-ips: 10.7.4.226
   type: LoadBalancer
 
 users:

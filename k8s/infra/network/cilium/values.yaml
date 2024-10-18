@@ -84,7 +84,7 @@ ingressController:
   loadbalancerMode: shared
   service:
     annotations:
-      io.cilium/lb-ipam-ips: 10.7.4.217
+      io.cilium/lb-ipam-ips: 10.7.4.224
 
 # mTLS
 authentication:
