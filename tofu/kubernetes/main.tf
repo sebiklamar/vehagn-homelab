@@ -154,10 +154,10 @@ module "volumes" {
     #   node = "euclid"
     #   size = "1G"
     # }
-    # pv-keycloak = {
-    #   node = "euclid"
-    #   size = "2G"
-    # }
+    pv-keycloak = {
+      node = "pve2"
+      size = "2G"
+    }
     # pv-jellyfin = {
     #   node = "euclid"
     #   size = "12G"
