@@ -1,4 +1,7 @@
-installCRDs: true
+# cherry-picking https://github.com/vehagn/homelab/pull/78/commits
+#installCRDs: true
+crds:
+  enabled: true
 
 extraArgs:
   - "--enable-gateway-api"
