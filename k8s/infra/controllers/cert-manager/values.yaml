@@ -2,6 +2,7 @@ installCRDs: true
 
 extraArgs:
   - "--enable-gateway-api"
+  - "--dns01-recursive-nameservers=1.1.1.1:53,9.9.9.9:53"
 
 resources:
   limits:
