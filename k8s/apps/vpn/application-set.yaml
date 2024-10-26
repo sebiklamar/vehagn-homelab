@@ -11,7 +11,7 @@ spec:
         repoURL: https://github.com/sebiklamar/vehagn-homelab
         revision: HEAD
         directories:
-          - path: k8s/infra/vpn/*
+          - path: k8s/apps/vpn/*
   template:
     metadata:
       name: '{{ path.basename }}'
