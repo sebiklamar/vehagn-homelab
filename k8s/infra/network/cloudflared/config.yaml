@@ -1,4 +1,4 @@
-tunnel: test-mac
+tunnel: test-stonegarden
 credentials-file: /etc/cloudflared/credentials/credentials.json
 metrics: 0.0.0.0:2000
 no-autoupdate: true
