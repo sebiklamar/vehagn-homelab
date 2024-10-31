@@ -12,6 +12,7 @@ resource "proxmox_virtual_environment_vm" "this" {
   machine       = "q35"
   scsi_hardware = "virtio-scsi-single"
   bios          = "seabios"
+  pool_id       = "Test"
 
   agent {
     enabled = true
@@ -32,6 +33,10 @@ resource "proxmox_virtual_environment_vm" "this" {
     vlan_id     = each.value.vlan_id
   }
 
+  network_device {
+    vlan_id     = "108"
+  }
+
   disk {
     datastore_id = each.value.datastore_id
     interface    = "scsi0"
@@ -40,7 +45,7 @@ resource "proxmox_virtual_environment_vm" "this" {
     discard      = "on"
     ssd          = true
     file_format  = "raw"
-    size         = 20
+    size         = 17
     file_id      = proxmox_virtual_environment_download_file.this["${each.value.host_node}_${each.value.update == true ? local.update_image_id : local.image_id}"].id
   }
 
