@@ -33,10 +33,6 @@ resource "proxmox_virtual_environment_vm" "this" {
     vlan_id     = each.value.vlan_id
   }
 
-  network_device {
-    vlan_id     = "108"
-  }
-
   disk {
     datastore_id = each.value.datastore_id
     interface    = "scsi0"
