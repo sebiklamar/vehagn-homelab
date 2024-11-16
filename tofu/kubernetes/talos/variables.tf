@@ -30,7 +30,7 @@ variable "nodes" {
     machine_type  = string
     datastore_id  = optional(string, "local-enc")
     ip            = string
-    mac_address   = string
+    mac_address   = optional(string, null)
     vm_id         = number
     cpu           = number
     ram_dedicated = number
