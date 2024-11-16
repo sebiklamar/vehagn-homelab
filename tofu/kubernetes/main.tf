@@ -1,3 +1,14 @@
+locals {
+  env         = "vehagn"
+  domain      = "test.iseja.net"
+  vlan_id     = 104
+  volume_vmid = 9410
+  ctrl_cpu    = 2
+  ctrl_ram    = 4096
+  work_cpu    = 2
+  work_ram    = 4096
+}
+
 module "talos" {
   source = "./talos"
 
@@ -5,88 +16,79 @@ module "talos" {
     proxmox = proxmox
   }
 
-  image = {
-    version        = "v1.8.1"
-    update_version = "v1.8.1" # renovate: github-releases=siderolabs/talos
-    schematic      = file("${path.module}/talos/image/schematic.yaml")
-  }
-
+  
   cilium = {
     values  = file("${path.module}/../../k8s/infra/network/cilium/values.yaml")
     install = file("${path.module}/talos/inline-manifests/cilium-install.yaml")
   }
 
-  cluster = {
-    name            = "test-verhagn"
-    endpoint        = "10.7.4.101"
-    gateway         = "10.7.4.1"
-    talos_version   = "v1.7.6"
-    proxmox_cluster = "iseja-lab"
+  image = {
+    version        = "v1.8.1"
+    update_version = "v1.8.3" # renovate: github-releases=siderolabs/talos
+    schematic      = file("${path.module}/talos/image/schematic.yaml")
   }
 
+  cluster = {
+    # ToDo resolve redundant def. of a talos version (in contrast to var.image.version)
+    talos_version   = "v1.7.6"
+    name            = "${local.env}-talos"
+    proxmox_cluster = "iseja-lab"
+    endpoint        = "10.7.4.101"
+    gateway         = "10.7.4.1"
+      }
+
   nodes = {
-    "vehagn-ctrl-01.test.iseja.net" = {
+    "${local.env}-ctrl-01.${local.domain}" = {
       host_node     = "pve2"
       machine_type  = "controlplane"
-      vlan_id       = 104
-      ip            = "10.7.4.101"
-      mac_address   = "BC:24:11:07:04:65"
-      vm_id         = 7004101
-      cpu           = 2
-      # ram_dedicated = 2048
-      ram_dedicated = 4096
+            ip            = "10.7.4.101"
+            vm_id         = 7004101
+vlan_id       = "${local.vlan_id}"
+      cpu           = "${local.ctrl_cpu}"
+      ram_dedicated = "${local.ctrl_ram}"
       # update        = true
     }
-    "vehagn-ctrl-02.test.iseja.net" = {
+    "${local.env}-ctrl-02.${local.domain}" = {
       host_node     = "pve2"
       machine_type  = "controlplane"
-      vlan_id       = 104
-      ip            = "10.7.4.102"
-      mac_address   = "BC:24:11:07:04:66"
-      vm_id         = 7004102
-      cpu           = 2
-      # ram_dedicated = 2048
-      ram_dedicated = 4096
+            ip            = "10.7.4.102"
+            vm_id         = 7004102
+vlan_id       = "${local.vlan_id}"
+      cpu           = "${local.ctrl_cpu}"
+      ram_dedicated = "${local.ctrl_ram}"
       # update        = true
     }
-    "vehagn-ctrl-03.test.iseja.net" = {
+    "${local.env}-ctrl-03.${local.domain}" = {
       host_node     = "pve2"
       machine_type  = "controlplane"
-      vlan_id       = 104
-      ip            = "10.7.4.103"
-      mac_address   = "BC:24:11:07:04:67"
-      vm_id         = 7004103
-      cpu           = 2
-      # ram_dedicated = 2048
-      ram_dedicated = 4096
+            ip            = "10.7.4.103"
+            vm_id         = 7004103
+vlan_id       = "${local.vlan_id}"
+      cpu           = "${local.ctrl_cpu}"
+      ram_dedicated = "${local.ctrl_ram}"
       # update        = true
     }
-    "vehagn-work-01.test.iseja.net" = {
+    "${local.env}-work-01.${local.domain}" = {
       host_node     = "pve2"
       machine_type  = "worker"
       ip            = "10.7.4.104"
-      vlan_id       = 104
-      mac_address   = "BC:24:11:07:04:68"
-      vm_id         = 7004104
-      cpu           = 2
-      # ram_dedicated = 2048
-      ram_dedicated = 4096
+            vm_id         = 7004104
+vlan_id       = "${local.vlan_id}"
+      cpu           = "${local.work_cpu}"
+      ram_dedicated = "${local.work_ram}"
       # update        = true
     }
-    "vehagn-work-02.test.iseja.net" = {
+    "${local.env}-work-02.${local.domain}" = {
       host_node     = "pve2"
       machine_type  = "worker"
       ip            = "10.7.4.105"
-      vlan_id       = 104
-      mac_address   = "BC:24:11:07:04:69"
-      vm_id         = 7004105
-      cpu           = 2
-      # ram_dedicated = 2048
-      ram_dedicated = 4096
+            vm_id         = 7004105
+vlan_id       = "${local.vlan_id}"
+      cpu           = "${local.work_cpu}"
+      ram_dedicated = "${local.work_ram}"
       # update        = true
     }
   }
-
 }
 
 module "sealed_secrets" {
@@ -129,6 +131,7 @@ module "volumes" {
     pv-test = {
       node = "pve2"
       size = "100M"
+      vmid = "${local.volume_vmid}"
     }
     # pv-sonarr = {
     #   node = "cantor"
