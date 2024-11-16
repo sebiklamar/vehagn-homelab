@@ -16,7 +16,7 @@ module "talos" {
     proxmox = proxmox
   }
 
-  
+
   cilium = {
     values  = file("${path.module}/../../k8s/infra/network/cilium/values.yaml")
     install = file("${path.module}/talos/inline-manifests/cilium-install.yaml")
@@ -35,15 +35,15 @@ module "talos" {
     proxmox_cluster = "iseja-lab"
     endpoint        = "10.7.4.101"
     gateway         = "10.7.4.1"
-      }
+  }
 
   nodes = {
     "${local.env}-ctrl-01.${local.domain}" = {
       host_node     = "pve2"
       machine_type  = "controlplane"
-            ip            = "10.7.4.101"
-            vm_id         = 7004101
-vlan_id       = "${local.vlan_id}"
+      ip            = "10.7.4.101"
+      vm_id         = 7004101
+      vlan_id       = "${local.vlan_id}"
       cpu           = "${local.ctrl_cpu}"
       ram_dedicated = "${local.ctrl_ram}"
       # update        = true
@@ -51,9 +51,9 @@ vlan_id       = "${local.vlan_id}"
     "${local.env}-ctrl-02.${local.domain}" = {
       host_node     = "pve2"
       machine_type  = "controlplane"
-            ip            = "10.7.4.102"
-            vm_id         = 7004102
-vlan_id       = "${local.vlan_id}"
+      ip            = "10.7.4.102"
+      vm_id         = 7004102
+      vlan_id       = "${local.vlan_id}"
       cpu           = "${local.ctrl_cpu}"
       ram_dedicated = "${local.ctrl_ram}"
       # update        = true
@@ -61,9 +61,9 @@ vlan_id       = "${local.vlan_id}"
     "${local.env}-ctrl-03.${local.domain}" = {
       host_node     = "pve2"
       machine_type  = "controlplane"
-            ip            = "10.7.4.103"
-            vm_id         = 7004103
-vlan_id       = "${local.vlan_id}"
+      ip            = "10.7.4.103"
+      vm_id         = 7004103
+      vlan_id       = "${local.vlan_id}"
       cpu           = "${local.ctrl_cpu}"
       ram_dedicated = "${local.ctrl_ram}"
       # update        = true
@@ -72,8 +72,8 @@ vlan_id       = "${local.vlan_id}"
       host_node     = "pve2"
       machine_type  = "worker"
       ip            = "10.7.4.104"
-            vm_id         = 7004104
-vlan_id       = "${local.vlan_id}"
+      vm_id         = 7004104
+      vlan_id       = "${local.vlan_id}"
       cpu           = "${local.work_cpu}"
       ram_dedicated = "${local.work_ram}"
       # update        = true
@@ -82,8 +82,8 @@ vlan_id       = "${local.vlan_id}"
       host_node     = "pve2"
       machine_type  = "worker"
       ip            = "10.7.4.105"
-            vm_id         = 7004105
-vlan_id       = "${local.vlan_id}"
+      vm_id         = 7004105
+      vlan_id       = "${local.vlan_id}"
       cpu           = "${local.work_cpu}"
       ram_dedicated = "${local.work_ram}"
       # update        = true
@@ -157,10 +157,10 @@ module "volumes" {
     #   node = "euclid"
     #   size = "1G"
     # }
-    pv-keycloak = {
-      node = "pve2"
-      size = "2G"
-    }
+    # pv-keycloak = {
+    #   node = "pve2"
+    #   size = "2G"
+    # }
     # pv-jellyfin = {
     #   node = "euclid"
     #   size = "12G"
